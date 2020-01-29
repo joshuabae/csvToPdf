@@ -7,7 +7,7 @@ from reportlab.platypus import *
 from reportlab.lib.styles import getSampleStyleSheet
 
 # Data from CSV
-with open('C:/Users/jsbae/DSCI400/Sample Receipting.csv', "r") as csvfile:
+with open('C:/Users/jsbae/csvToPdf/Sample Receipting.csv', "r") as csvfile:
     data = list(csv.reader(csvfile))
 
 
@@ -29,7 +29,7 @@ def split_data(data):
         else:
             new_list.append(row)
             # figure out how to get the last index value
-            if index == 6:
+            if index == (len(data_without_cat)-1):
                 list_of_lists.append(new_list)
     list_of_lists.pop(0)
     return list_of_lists
@@ -101,7 +101,7 @@ def make_pdf(donor_data):
 
     # Generate PDF
     archive_pdf = SimpleDocTemplate(
-        f'C:/Users/jsbae/DSCI400/XA Donation Report {donor}.pdf',
+        f'C:/Users/jsbae/csvToPdf/XA Donation Report {donor}.pdf',
         pagesize=letter,
         rightMargin=40,
         leftMargin=40,
