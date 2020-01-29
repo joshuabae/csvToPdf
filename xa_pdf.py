@@ -35,9 +35,6 @@ def split_data(data):
     return list_of_lists
 
 
-new_data = split_data(data)
-
-
 def make_pdf(donor_data):
     donor = donor_data[1][0]
     elements = []
@@ -46,6 +43,7 @@ def make_pdf(donor_data):
     # PDF Text - Styles
     styles = getSampleStyleSheet()
     styleNormal = styles['Normal']
+    styleNormal.wordWrap = 'LTR'
 
     # PDF Text - Content
     line1 = 'XA Giving Receipt'
@@ -84,16 +82,18 @@ def make_pdf(donor_data):
 
     # PDF Table - Column Widths
     colWidths = [
-        3.0 * cm,  # Column 0
-        3.0 * cm,  # Column 1
+        2.5 * cm,  # Column 0
+        2.5 * cm,  # Column 1
         2.0 * cm,  # Column 2
         3.0 * cm,  # Column 3
         2.5 * cm,  # Column 4
         2.5 * cm,  # Column 5
     ]
 
+    wrappedData = [[Paragraph(cell, styleNormal) for cell in row] for row in data]
+
     # Add table to elements
-    t = Table(donor_data, colWidths=colWidths)
+    t = Table(wrappedData, colWidths=colWidths)
 
     # styles cell entries
     t.setStyle(table_style)
@@ -112,5 +112,7 @@ def make_pdf(donor_data):
     print(f'XA Donation Report Generated for {donor}!')
 
 
-for i in range(0, len(new_data)):
-    make_pdf(new_data[i])
+new_data = split_data(data)
+
+#make_pdf(new_data[0])
+make_pdf((new_data[1]))
