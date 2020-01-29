@@ -90,7 +90,8 @@ def make_pdf(donor_data):
         2.5 * cm,  # Column 5
     ]
 
-    wrappedData = [[Paragraph(cell, styleNormal) for cell in row] for row in data]
+    # for some reason, this function compiles all donor data together (wtf)
+    wrappedData = [[Paragraph(cell, styleNormal) for cell in row] for row in donor_data]
 
     # Add table to elements
     t = Table(wrappedData, colWidths=colWidths)
@@ -114,5 +115,5 @@ def make_pdf(donor_data):
 
 new_data = split_data(data)
 
-#make_pdf(new_data[0])
-make_pdf((new_data[1]))
+for i in range(0, len(new_data)):
+    make_pdf((new_data[i]))
